@@ -112,6 +112,7 @@ def notify_upcoming_tasks():
     """
     tasks = get_upcoming_tasks(DATABASE_ID)
     send_line_notify(compose_message_for_upcoming_tasks(tasks))
+    click.echo(datetime.now())
 
 def main():
     cli()
