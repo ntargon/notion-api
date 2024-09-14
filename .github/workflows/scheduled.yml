@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: '50 22 * * *' # 毎日 *:15(JST) に実行
+    - cron: '0 21 * * *' # 毎日 6:00(JST) に実行
   workflow_dispatch:
 
 jobs:
