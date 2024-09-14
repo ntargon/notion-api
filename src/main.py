@@ -2,7 +2,7 @@ import requests
 from pprint import pprint
 import click
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 
 
@@ -35,7 +35,9 @@ def send_line_notify(message: str):
 
 def get_upcoming_tasks(database_id):
     """Notionから期日が1週間以内のタスクを取得する"""
-    one_week_later = (datetime.now() + timedelta(days=7)).isoformat()
+
+    tz_jst = timezone(timedelta(hours=9))
+    one_week_later = (datetime.now(tz_jst) + timedelta(days=7)).isoformat()
     query = {
         "filter": {
             "and": [
@@ -112,7 +114,6 @@ def notify_upcoming_tasks():
     """
     tasks = get_upcoming_tasks(DATABASE_ID)
     send_line_notify(compose_message_for_upcoming_tasks(tasks))
-    click.echo(datetime.now())
 
 def main():
     cli()
