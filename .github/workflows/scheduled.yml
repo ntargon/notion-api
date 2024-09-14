@@ -20,4 +20,24 @@ jobs:
         env:
           NOTION_API_KEY: ${{secrets.NOTION_API_KEY}}
           DATABASE_ID: ${{secrets.DATABASE_ID}}
+          DATABASE_ID_RECURRING_TASK: ${{secrets.DATABASE_ID_RECURRING_TASK}}
+          LINE_NOTIFY_TOKEN: ${{secrets.LINE_NOTIFY_TOKEN}}
+
+  register-recurring-tasks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run Python
+        run: python src/main.py register-recurring-tasks
+        env:
+          NOTION_API_KEY: ${{secrets.NOTION_API_KEY}}
+          DATABASE_ID: ${{secrets.DATABASE_ID}}
+          DATABASE_ID_RECURRING_TASK: ${{secrets.DATABASE_ID_RECURRING_TASK}}
           LINE_NOTIFY_TOKEN: ${{secrets.LINE_NOTIFY_TOKEN}}
