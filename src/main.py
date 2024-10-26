@@ -169,7 +169,9 @@ def notify_upcoming_tasks():
     完了状態になっていないタスクの内、期日が1週間以内のタスクのリンクをLINE Notifyで通知する
     """
     tasks = get_upcoming_tasks(DATABASE_ID)
-    send_line_notify(compose_message_for_upcoming_tasks(tasks))
+    message = compose_message_for_upcoming_tasks(tasks)
+    if len(message) > 1:
+        send_line_notify(message)
 
 def register_recurring_task(recurring_task):
 
